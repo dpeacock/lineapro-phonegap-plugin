@@ -40,10 +40,9 @@ LineaProCDV.prototype.onMagneticCardData = function(track1, track2, track3) {
     this.cardDataCallback(track1 + track2 + track3);
 };
 
-LineaProCDV.prototype.onBarcodeData = function(rawData, rawCodesArr, scanId, dob, state, city, expires, gender, height, weight, hair, eye, firstName, lastName) {
+LineaProCDV.prototype.onBarcodeData = function(rawCodesArr, scanId, dob, state, city, expires, gender, height, weight, hair, eye, firstName, lastName) {
     var data = {
-               rawData: rawData,
-               rawCodesArr: rawCodesArr,
+               rawCodesArr: rawCodesArr
                scanId: scanId,
                dob: dob,
                state: state,
