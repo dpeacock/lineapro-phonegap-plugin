@@ -212,6 +212,7 @@
 
 - (void) barcodeNSData: (NSData *) barcode type:(int) type {
     NSLog(@"barcodeNSData: barcode - %@, type - %@", [[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding], [dtdev barcodeType2Text:type]);
+	NSString* rawData = [[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding];
     NSArray *codesArr = [[[NSString alloc] initWithData:barcode encoding:NSUTF8StringEncoding] componentsSeparatedByCharactersInSet:
                         [NSCharacterSet characterSetWithCharactersInString:@"\n\r"]];
     NSString* substrDateBirth = @"DBB";
@@ -242,7 +243,7 @@
     
     NSString* rawCodesArrJSString = [LineaProCDV generateStringForArrayEvaluationInJS:codesArr];
     //LineaProCDV.onBarcodeData(scanId, dob, state, city, expires, gender, height, weight, hair, eye)
-    NSString* retStr = [ NSString stringWithFormat:@"var rawCodesArr = %@; LineaProCDV.onBarcodeData(rawCodesArr, '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@');", rawCodesArrJSString, license, dateBirth, state, city, expires, gender, height, weight, hair, eye, name, lastName];
+    NSString* retStr = [ NSString stringWithFormat:@"var rawData = %@; var rawCodesArr = %@; LineaProCDV.onBarcodeData(rawCodesArr, '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@');", rawData, rawCodesArrJSString, license, dateBirth, state, city, expires, gender, height, weight, hair, eye, name, lastName];
     [[super webView] stringByEvaluatingJavaScriptFromString:retStr];
 }
 
